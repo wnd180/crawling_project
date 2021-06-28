@@ -5,20 +5,22 @@ import datetime #날짜
 import time # 일정시간 반복
 import openpyxl
 from openpyxl.styles import PatternFill
-
+import sys
+import os
 # 텍스트 파일 생성 or 불러와서 urls 리스트에 추가
 # urls 리스트 생성
 urls = []
+
 try:
-    with open('url.txt', 'r') as file:
+    with open(os.path.dirname(os.path.realpath(__file__))+'/'+'url.txt', 'r') as file:
         for line in file:
             urls.append(line.strip('\n'))
     
 except:
-    f = open("url.txt", 'w', encoding="UTF8")
+    f = open(os.path.dirname(os.path.realpath(__file__))+'/'+"url.txt", 'w')
     f.close()
     print("생성된 url.txt 파일에 하나의 url을 입력하고 엔터를 반복한 후 다시 실행해주세요")
-
+    sys.exit()
 #=============================================
 # stock_list = []
 # time_list = []
@@ -100,7 +102,7 @@ for i in range(len(urls)):
     else:
         print("excel 구조 형성에서의 response status_code 오류")
 
-wb.save("newstock.xlsx")
+wb.save(os.path.dirname(os.path.realpath(__file__))+'/'+"newstock.xlsx")
 
 #색상지정
 r_color = PatternFill(start_color='ff0000', end_color='ff0000', fill_type='solid')
@@ -136,7 +138,7 @@ while True:
             print(response.status_code)
             print("비정상적인 접근")
     i += 1
-    wb.save("newstock.xlsx")
+    wb.save(os.path.dirname(os.path.realpath(__file__))+'/'+"newstock.xlsx")
     print('저장완료')
     time.sleep(57)
 
