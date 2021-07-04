@@ -101,14 +101,22 @@ def make_column():
                 
             # else:
             #     new_sheet = wb.create_sheet(name_text)
-
-            sheet.column_dimensions['A'].width = 25
             sheet.cell(1, 1).value = "날짜/시간"
             sheet.cell(row = 1, column=i+2).value = name_text
         else:
             print("excel 구조 형성에서의 response status_code 오류")
 
     wb.save(os.path.dirname(os.path.realpath(__file__))+'/'+"newstock.xlsx")
+
+def column_size():
+    dims = {}
+    for row in sheet.rows:
+        for cell in row:
+            if cell.value:
+                dims[cell.column_letter] = max((dims.get(cell.column_letter, 0), len(str(cell.value))))    
+    for col, value in dims.items():
+        sheet.column_dimensions[col].width = value   
+    sheet.column_dimensions['A'].width = 25
 
 def stock_check():
     row = 2
@@ -146,6 +154,7 @@ def stock_check():
 def main():
     url_check()
     make_column()
+    column_size()
     stock_check()
 
 main()
