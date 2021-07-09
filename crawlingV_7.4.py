@@ -1,6 +1,5 @@
 import requests 
 from bs4 import BeautifulSoup
-import pandas as pd
 import datetime #날짜
 import time # 일정시간 반복
 import openpyxl
@@ -31,52 +30,6 @@ def url_check():
         print("생성된 url.txt 파일에 하나의 url을 입력하고 엔터를 반복한 후 다시 실행해주세요")
         sys.exit()
 
-#=============================================
-# stock_list = []
-# time_list = []
-# name_list = []
-
-# # 재고유무 확인
-
-# while True:
-#     for url in urls:
-#         response = requests.get(url)
-
-#         if response.status_code == 200 :
-#             html = response.text
-#             soup = BeautifulSoup(html, 'html.parser')
-#             title = soup.select_one('#stock-status')
-#             text = title.get_text()
-#             val = "품절" in text
-#             if val:
-#                 stock_list.append("재고 X")
-#             else:
-#                 stock_list.append("재고 O")
-            
-            
-#             current = datetime.datetime.now()
-#             current_time = current.strftime('%Y-%m-%d %H:%M') #current.replace(microsecond=0)
-#             time_list.append(str(current_time))
-#             name = soup.select_one('#name')
-#             name_text = name.get_text()
-#             name_list.append(name_text)
-
-#         else:
-#             print(response.status_code)
-#             print("비정상적인 접근")
-
-#     dataframe = pd.DataFrame({
-#         'Time':time_list, 'name': name_list,'stock':stock_list
-#     })
-
-#     print(dataframe)
-
-#     dataframe.to_excel('stocklist.xlsx')
-
-#     time.sleep(60)
-#============================== NEW
-
-#첫리스트에 어떤 값이 올지 모름
 def make_column():
     for i in range(len(urls)):
         response = requests.get(urls[i])
@@ -149,7 +102,7 @@ def stock_check():
         row += 1
         wb.save(os.path.dirname(os.path.realpath(__file__))+'/'+"newstock.xlsx")
         print('저장완료')
-        time.sleep(1)
+        time.sleep(5-len(urls))
 
 def main():
     url_check()
