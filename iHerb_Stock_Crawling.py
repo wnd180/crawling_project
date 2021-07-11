@@ -102,7 +102,7 @@ def stock_check():
         row += 1
         wb.save(os.path.dirname(os.path.realpath(__file__))+'/'+"newstock.xlsx")
         print('저장완료')
-        time.sleep(5-len(urls))
+        time.sleep(60-len(urls))
 
 def main():
     url_check()
